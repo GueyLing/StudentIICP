@@ -196,6 +196,7 @@ public class EventsFragment extends Fragment {
                     ref.addListenerForSingleValueEvent(new ValueEventListener() {
                         @Override
                         public void onDataChange(@NonNull DataSnapshot snapshot) {
+                            String id = list.get(position).getId();
                             String pollTitle= snapshot.child("pollTitle").getValue().toString();
                             String option1= snapshot.child("option1").getValue().toString();
                             String option2= snapshot.child("option2").getValue().toString();
@@ -203,8 +204,12 @@ public class EventsFragment extends Fragment {
                             String option1_count= snapshot.child("option1_count").getValue().toString();
                             String option2_count= snapshot.child("option2_count").getValue().toString();
                             String option3_count= snapshot.child("option3_count").getValue().toString();
-
-                           // methodToProcess3(pollTitle, option1, option2, option3, option1_count,option2_count,option3_count);
+                            String dayOfMonth= snapshot.child("dayOfMonth").getValue().toString();
+                            String month= snapshot.child("month").getValue().toString();
+                            String year= snapshot.child("year").getValue().toString();
+                            String hourOfDay= snapshot.child("hourOfDay").getValue().toString();
+                            String minute= snapshot.child("minute").getValue().toString();
+                            methodToProcess3(id, pollTitle, option1, option2, option3, option1_count,option2_count,option3_count,dayOfMonth,month,year,hourOfDay, minute);
 
                         }
 
@@ -218,20 +223,49 @@ public class EventsFragment extends Fragment {
         };
     }
 
-//    private void methodToProcess3(String pollTitle, String option1, String option2, String option3, String option1_count, String option2_count, String option3_count) {
-//        Intent intent = new Intent(getActivity(), ResultPollActivity.class);
-//        intent.putExtra("title", pollTitle);
-//        intent.putExtra("option1", option1);
-//        intent.putExtra("option2", option2);
-//        intent.putExtra("option3", option3);
-//        intent.putExtra("option1_count", option1_count);
-//        intent.putExtra("option2_count", option2_count);
-//        intent.putExtra("option3_count", option3_count);
-//
-//        startActivity(intent);
-//    }
-//
-//
+    private void methodToProcess3(String id, String pollTitle, String option1, String option2, String option3, String option1_count, String option2_count, String option3_count, String dayOfMonth, String month, String year, String hourOfDay, String minute) {
+        Boolean expired = false;
+        //Get Current Date Time
+        Calendar c = Calendar.getInstance();
+        SimpleDateFormat sdf = new SimpleDateFormat("MM/dd/yyyy HH:mm");
+        String getCurrentDateTime = sdf.format(c.getTime());
+        int i=Integer.parseInt(month);
+        if (i<10){
+            month = '0'+String.valueOf(i);
+        }else{
+            month = String.valueOf(i);
+        }
+
+        int j=Integer.parseInt(dayOfMonth);
+        if (j<10){
+            dayOfMonth = '0'+String.valueOf(j);
+        }else{
+            dayOfMonth = String.valueOf(j);
+        }
+
+        String getMyTime = month+'/'+dayOfMonth+'/'+year+' '+hourOfDay+':'+minute;
+        if (getCurrentDateTime.compareTo(getMyTime) < 0)
+        {
+            expired = false;
+        }
+        else
+        {
+            expired = true;
+        }
+        Intent intent = new Intent(getActivity(), VoteActivity.class);
+        intent.putExtra("title", pollTitle);
+        intent.putExtra("option1", option1);
+        intent.putExtra("option2", option2);
+        intent.putExtra("option3", option3);
+        intent.putExtra("option1_count", option1_count);
+        intent.putExtra("option2_count", option2_count);
+        intent.putExtra("option3_count", option3_count);
+        intent.putExtra("expired", expired);
+        intent.putExtra("id", id);
+        startActivity(intent);
+    }
+
+
     private void methodToProcess(String id, String petitionTitle, String description, String petition_no, String dayOfMonth, String month, String year, String hourOfDay, String minute) {
 
         Boolean expired = false;

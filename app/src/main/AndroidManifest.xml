@@ -16,6 +16,15 @@
         android:theme="@style/Theme.StudentIICP"
         tools:targetApi="31">
         <activity
+            android:name=".WaitActivity"
+            android:exported="false" />
+        <activity
+            android:name=".ResultPollActivity"
+            android:exported="false" />
+        <activity
+            android:name=".VoteActivity"
+            android:exported="false" />
+        <activity
             android:name=".SignPetitionActivity"
             android:exported="false" />
         <activity
