@@ -172,6 +172,7 @@ public class EventsFragment extends Fragment {
                     ref.addListenerForSingleValueEvent(new ValueEventListener() {
                         @Override
                         public void onDataChange(@NonNull DataSnapshot snapshot) {
+                            String id = list.get(position).getId();
                             String electionTitle= snapshot.child("electionTitle").getValue().toString();
                             String president_candidate1= snapshot.child("president_candidate1").getValue().toString();
                             String president_candidate2= snapshot.child("president_candidate2").getValue().toString();
@@ -186,7 +187,7 @@ public class EventsFragment extends Fragment {
                             String year= snapshot.child("year").getValue().toString();
                             String hourOfDay= snapshot.child("hourOfDay").getValue().toString();
                             String minute= snapshot.child("minute").getValue().toString();
-                            methodToProcess2(electionTitle, president_candidate1, president_candidate2,vice_president_candidate1,vice_president_candidate2,p1_count,p2_count,vp1_count, vp2_count, dayOfMonth, month, year, hourOfDay, minute );
+                            methodToProcess2(id, electionTitle, president_candidate1, president_candidate2,vice_president_candidate1,vice_president_candidate2,p1_count,p2_count,vp1_count, vp2_count, dayOfMonth, month, year, hourOfDay, minute );
 
                         }
 
@@ -312,7 +313,7 @@ public class EventsFragment extends Fragment {
 
     }
 
-    private void methodToProcess2(String electionTitle, String president_candidate1, String president_candidate2, String vice_president_candidate1, String vice_president_candidate2, String p1_count, String p2_count, String vp1_count, String vp2_count, String dayOfMonth, String month, String year, String hourOfDay, String minute) {
+    private void methodToProcess2(String id, String electionTitle, String president_candidate1, String president_candidate2, String vice_president_candidate1, String vice_president_candidate2, String p1_count, String p2_count, String vp1_count, String vp2_count, String dayOfMonth, String month, String year, String hourOfDay, String minute) {
         Boolean expired = false;
         //Get Current Date Time
         Calendar c = Calendar.getInstance();
@@ -337,6 +338,12 @@ public class EventsFragment extends Fragment {
         {
             expired = false;
             Intent intent = new Intent(getActivity(), FaceDetectionActivity.class);
+            intent.putExtra("id", id);
+            intent.putExtra("title", electionTitle);
+            intent.putExtra("president_candidate1", president_candidate1);
+            intent.putExtra("president_candidate2", president_candidate2);
+            intent.putExtra("vice_president_candidate1", vice_president_candidate1);
+            intent.putExtra("vice_president_candidate2", vice_president_candidate2);
             startActivity(intent);
         }
         else
