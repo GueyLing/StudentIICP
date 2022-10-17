@@ -9,4 +9,5 @@
     <string name="submit">Submit</string>
     <string name="ongoing_event">This event is still ongoing.</string>
     <string name="instruction">Please check the result after:</string>
+    <string name="open_camera">Open Camera</string>
 </resources>

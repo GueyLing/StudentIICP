@@ -181,8 +181,12 @@ public class EventsFragment extends Fragment {
                             String p2_count= snapshot.child("p2_count").getValue().toString();
                             String vp1_count= snapshot.child("vp1_count").getValue().toString();
                             String vp2_count= snapshot.child("vp2_count").getValue().toString();
-
-                          //  methodToProcess2(electionTitle, president_candidate1, president_candidate2,vice_president_candidate1,vice_president_candidate2,p1_count,p2_count,vp1_count, vp2_count );
+                            String dayOfMonth= snapshot.child("dayOfMonth").getValue().toString();
+                            String month= snapshot.child("month").getValue().toString();
+                            String year= snapshot.child("year").getValue().toString();
+                            String hourOfDay= snapshot.child("hourOfDay").getValue().toString();
+                            String minute= snapshot.child("minute").getValue().toString();
+                            methodToProcess2(electionTitle, president_candidate1, president_candidate2,vice_president_candidate1,vice_president_candidate2,p1_count,p2_count,vp1_count, vp2_count, dayOfMonth, month, year, hourOfDay, minute );
 
                         }
 
@@ -227,7 +231,7 @@ public class EventsFragment extends Fragment {
         Boolean expired = false;
         //Get Current Date Time
         Calendar c = Calendar.getInstance();
-        SimpleDateFormat sdf = new SimpleDateFormat("MM/dd/yyyy HH:mm");
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy/MM/dd HH:mm");
         String getCurrentDateTime = sdf.format(c.getTime());
         int i=Integer.parseInt(month);
         if (i<10){
@@ -243,7 +247,7 @@ public class EventsFragment extends Fragment {
             dayOfMonth = String.valueOf(j);
         }
 
-        String getMyTime = month+'/'+dayOfMonth+'/'+year+' '+hourOfDay+':'+minute;
+        String getMyTime = year+'/'+month+'/'+dayOfMonth+' '+hourOfDay+':'+minute;
         if (getCurrentDateTime.compareTo(getMyTime) < 0)
         {
             expired = false;
@@ -271,7 +275,7 @@ public class EventsFragment extends Fragment {
         Boolean expired = false;
         //Get Current Date Time
         Calendar c = Calendar.getInstance();
-        SimpleDateFormat sdf = new SimpleDateFormat("MM/dd/yyyy HH:mm");
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy/MM/dd HH:mm");
         String getCurrentDateTime = sdf.format(c.getTime());
         int i=Integer.parseInt(month);
         if (i<10){
@@ -287,7 +291,7 @@ public class EventsFragment extends Fragment {
             dayOfMonth = String.valueOf(j);
         }
 
-        String getMyTime = month+'/'+dayOfMonth+'/'+year+' '+hourOfDay+':'+minute;
+        String getMyTime = year+'/'+month+'/'+dayOfMonth+' '+hourOfDay+':'+minute;
         if (getCurrentDateTime.compareTo(getMyTime) < 0)
         {
             expired = false;
@@ -308,18 +312,50 @@ public class EventsFragment extends Fragment {
 
     }
 
-//    private void methodToProcess2(String electionTitle, String president_candidate1, String president_candidate2,String vice_president_candidate1,String vice_president_candidate2,String p1_count,String p2_count,String vp1_count, String vp2_count) {
-//        Intent intent = new Intent(getActivity(), ResultElectionActivity.class);
-//        intent.putExtra("title", electionTitle);
-//        intent.putExtra("president_candidate1", president_candidate1);
-//        intent.putExtra("president_candidate2", president_candidate2);
-//        intent.putExtra("vice_president_candidate1", vice_president_candidate1);
-//        intent.putExtra("vice_president_candidate2", vice_president_candidate2);
-//        intent.putExtra("p1_count", p1_count);
-//        intent.putExtra("p2_count", p2_count);
-//        intent.putExtra("vp1_count", vp1_count);
-//        intent.putExtra("vp2_count", vp2_count);
-//
-//        startActivity(intent);
-//    }
+    private void methodToProcess2(String electionTitle, String president_candidate1, String president_candidate2, String vice_president_candidate1, String vice_president_candidate2, String p1_count, String p2_count, String vp1_count, String vp2_count, String dayOfMonth, String month, String year, String hourOfDay, String minute) {
+        Boolean expired = false;
+        //Get Current Date Time
+        Calendar c = Calendar.getInstance();
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy/MM/dd HH:mm");
+        String getCurrentDateTime = sdf.format(c.getTime());
+        int i=Integer.parseInt(month);
+        if (i<10){
+            month = '0'+String.valueOf(i);
+        }else{
+            month = String.valueOf(i);
+        }
+
+        int j=Integer.parseInt(dayOfMonth);
+        if (j<10){
+            dayOfMonth = '0'+String.valueOf(j);
+        }else{
+            dayOfMonth = String.valueOf(j);
+        }
+
+        String getMyTime = year+'/'+month+'/'+dayOfMonth+' '+hourOfDay+':'+minute;
+        if (getCurrentDateTime.compareTo(getMyTime) < 0)
+        {
+            expired = false;
+            Intent intent = new Intent(getActivity(), FaceDetectionActivity.class);
+            startActivity(intent);
+        }
+        else
+        {
+            expired = true;
+            Intent intent = new Intent(getActivity(), ResultElectionActivity.class);
+            intent.putExtra("title", electionTitle);
+            intent.putExtra("president_candidate1", president_candidate1);
+            intent.putExtra("president_candidate2", president_candidate2);
+            intent.putExtra("vice_president_candidate1", vice_president_candidate1);
+            intent.putExtra("vice_president_candidate2", vice_president_candidate2);
+            intent.putExtra("p1_count", p1_count);
+            intent.putExtra("p2_count", p2_count);
+            intent.putExtra("vp1_count", vp1_count);
+            intent.putExtra("vp2_count", vp2_count);
+
+            startActivity(intent);
+        }
+
+
+    }
 }
