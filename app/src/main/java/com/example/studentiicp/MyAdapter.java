@@ -18,17 +18,25 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyViewHolder> {
     Context context;
     ArrayList<EventTitle> list;
     RecyclerViewClickListener listener;
+    int option;
 
-    public MyAdapter(Context context, ArrayList<EventTitle> list, RecyclerViewClickListener listener) {
+    public MyAdapter(Context context, ArrayList<EventTitle> list, RecyclerViewClickListener listener, int option) {
         this.context = context;
         this.list = list;
         this.listener = listener;
+        this.option = option;
     }
 
     @NonNull
     @Override
     public MyViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View v = LayoutInflater.from(context).inflate(R.layout.item, parent, false);
+        View v;
+        if (option == 1){
+            v = LayoutInflater.from(context).inflate(R.layout.horizontal_item, parent, false);
+        }else{
+            v = LayoutInflater.from(context).inflate(R.layout.item, parent, false);
+        }
+
         return new MyViewHolder(v);
     }
 

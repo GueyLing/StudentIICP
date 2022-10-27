@@ -87,7 +87,7 @@ public class EventsFragment extends Fragment {
         database = FirebaseDatabase.getInstance().getReference("events");
         new_database = FirebaseDatabase.getInstance().getReference("user_events").child(currentFirebaseUser.getUid());
         recyclerView.setHasFixedSize(true);
-        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getActivity());
+        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getActivity(), LinearLayoutManager.HORIZONTAL, false);
         linearLayoutManager.setReverseLayout(true);
         linearLayoutManager.setStackFromEnd(true);
         recyclerView.setLayoutManager(linearLayoutManager);
@@ -98,7 +98,7 @@ public class EventsFragment extends Fragment {
         list = new ArrayList<>();
         ArrayList<String> myList= new ArrayList<>();
         //this should put line90
-        myAdapter = new MyAdapter(getActivity(),list, listener);
+        myAdapter = new MyAdapter(getActivity(),list, listener, 1);
         recyclerView.setAdapter(myAdapter);
 
         new_database.addValueEventListener(new ValueEventListener() {

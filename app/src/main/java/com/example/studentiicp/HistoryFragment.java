@@ -98,7 +98,7 @@ public class HistoryFragment extends Fragment {
         list = new ArrayList<>();
         ArrayList<String> myList= new ArrayList<>();
         //this should put line90
-        myAdapter = new MyAdapter(getActivity(),list, listener);
+        myAdapter = new MyAdapter(getActivity(),list, listener, 2);
         recyclerView.setAdapter(myAdapter);
 
         new_database.addValueEventListener(new ValueEventListener() {
