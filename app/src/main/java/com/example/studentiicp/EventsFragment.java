@@ -123,8 +123,34 @@ public class EventsFragment extends Fragment {
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 for (DataSnapshot dataSnapshot: snapshot.getChildren()){
                     EventTitle event = dataSnapshot.getValue(EventTitle.class);
+                    int dayOfMonth = event.getDayOfMonth();
+                    int month = event.getMonth();
+                    int year = event.getYear();
+                    int hourOfDay = event.getHourOfDay();
+                    int minute = event.getMinute();
+                    String newMonth, newDay;
+                    Calendar c = Calendar.getInstance();
+                    SimpleDateFormat sdf = new SimpleDateFormat("yyyy/MM/dd HH:mm");
+                    String getCurrentDateTime = sdf.format(c.getTime());
+                    if (month<10){
+                        newMonth = '0'+String.valueOf(month);
+                    }else{
+                        newMonth = String.valueOf(month);
+                    }
+
+                    if (dayOfMonth<10){
+                        newDay = '0'+String.valueOf(dayOfMonth);
+                    }else{
+                        newDay = String.valueOf(dayOfMonth);
+                    }
+
+                    String getMyTime = year+ "/" +newMonth+'/'+newDay+' '+hourOfDay+':'+minute;
                     if (myList.contains(event.getId())){
-                        list.add(event);
+                        if (getCurrentDateTime.compareTo(getMyTime) < 0)
+                        {
+                            list.add(event);
+                        }
+
                     }
 
                 }
