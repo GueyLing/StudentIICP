@@ -17,7 +17,7 @@ public class MyViewPagerAdapter extends FragmentStateAdapter {
             case 0:
                 return new HistoryFragment();
             case 1:
-                return new EventsFragment();
+                return new OngoingHistoryFragment();
             default:
                 return new HistoryFragment();
         }
