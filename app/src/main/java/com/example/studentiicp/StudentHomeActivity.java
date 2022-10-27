@@ -26,7 +26,7 @@ public class StudentHomeActivity extends AppCompatActivity {
                     replaceFragment(new EventsFragment());
                     break;
                 case R.id.history:
-                    replaceFragment(new HistoryFragment());
+                    replaceFragment(new TwoTabFragment());
                     break;
                 case R.id.profile:
                     replaceFragment(new ProfileFragment());

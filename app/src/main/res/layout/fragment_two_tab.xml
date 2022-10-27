@@ -3,12 +3,45 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="#D9D7DC"
     tools:context=".TwoTabFragment">
 
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="@string/hello_blank_fragment" />
+        android:background="@color/white"
+        android:layout_height="82dp">
 
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@color/white"
+            android:text="History"
+            android:textColor="@color/black"
+            android:textSize="30dp"
+            android:layout_marginTop="15dp"
+            android:layout_marginLeft="150dp"
+            android:textStyle="bold" />
+    </LinearLayout>
+
+    <com.google.android.material.tabs.TabLayout
+        android:layout_marginTop="80dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/white"
+        android:id="@+id/tab_layout">
+        <com.google.android.material.tabs.TabItem
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Results Available"/>
+        <com.google.android.material.tabs.TabItem
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Ongoing"/>
+    </com.google.android.material.tabs.TabLayout>
+
+<androidx.viewpager2.widget.ViewPager2
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:id="@+id/view_pager"
+    android:layout_marginTop="130dp"/>
 </FrameLayout>
