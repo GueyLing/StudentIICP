@@ -5,10 +5,29 @@
     android:layout_height="match_parent"
     android:background="#D9D7DC"
     tools:context=".OngoingHistoryFragment">
+    <com.facebook.shimmer.ShimmerFrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:id="@+id/shimmer">
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
 
+            <include layout="@layout/shimmer_item">
+            </include>
+            <include layout="@layout/shimmer_item">
+            </include>
+            <include layout="@layout/shimmer_item">
+            </include>
+            <include layout="@layout/shimmer_item">
+            </include>
+        </LinearLayout>
+    </com.facebook.shimmer.ShimmerFrameLayout>
     <androidx.recyclerview.widget.RecyclerView
         android:layout_marginTop="20dp"
         android:id="@+id/eventList"
+        android:visibility="gone"
         android:layout_width="match_parent"
         android:layout_height="match_parent" />
 </FrameLayout>

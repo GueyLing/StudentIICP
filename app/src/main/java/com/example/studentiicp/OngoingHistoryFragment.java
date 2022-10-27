@@ -13,6 +13,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.facebook.shimmer.ShimmerFrameLayout;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
@@ -28,6 +29,7 @@ import java.util.Calendar;
 public class OngoingHistoryFragment extends Fragment {
 
     RecyclerView recyclerView;
+    ShimmerFrameLayout mShimmerFrameLayout;
     DatabaseReference database, new_database;
     MyAdapter myAdapter;
     ArrayList<EventTitle> list;
@@ -37,6 +39,8 @@ public class OngoingHistoryFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fragment_ongoing_history, container, false);
+        mShimmerFrameLayout = rootView.findViewById(R.id.shimmer);
+        mShimmerFrameLayout.startShimmer();
         recyclerView = rootView.findViewById(R.id.eventList);
         FirebaseUser currentFirebaseUser = FirebaseAuth.getInstance().getCurrentUser();
         database = FirebaseDatabase.getInstance().getReference("events");
@@ -109,6 +113,9 @@ public class OngoingHistoryFragment extends Fragment {
                     }
 
                 }
+                mShimmerFrameLayout.stopShimmer();
+                mShimmerFrameLayout.setVisibility(View.GONE);
+                recyclerView.setVisibility(View.VISIBLE);
                 myAdapter.notifyDataSetChanged();
             }
 

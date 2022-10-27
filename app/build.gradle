@@ -48,4 +48,5 @@ dependencies {
     // If you want to detect face contours (landmark detection and classification
     // don't require this additional model):
     implementation 'com.google.firebase:firebase-ml-vision-face-model:20.0.1'
+    implementation 'com.facebook.shimmer:shimmer:0.5.0'
 }

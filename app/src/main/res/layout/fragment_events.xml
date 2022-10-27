@@ -16,9 +16,27 @@
             android:textSize="30dp"
             android:textStyle="bold" />
 
+        <com.facebook.shimmer.ShimmerFrameLayout
+            android:layout_marginTop="220dp"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:id="@+id/shimmer">
+                <LinearLayout
+                    android:orientation="horizontal"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                        <include layout="@layout/shimmer_main">
+                        </include>
+                        <include layout="@layout/shimmer_main">
+                        </include>
+                </LinearLayout>
+        </com.facebook.shimmer.ShimmerFrameLayout>
+
         <androidx.recyclerview.widget.RecyclerView
             android:layout_marginTop="220dp"
             android:id="@+id/eventList"
+            android:visibility="gone"
             android:layout_width="match_parent"
             android:layout_height="match_parent" />
 </FrameLayout>
