@@ -12,6 +12,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
 import com.facebook.shimmer.ShimmerFrameLayout;
 import com.google.firebase.auth.FirebaseAuth;
@@ -34,6 +35,7 @@ public class OngoingHistoryFragment extends Fragment {
     MyAdapter myAdapter;
     ArrayList<EventTitle> list;
     MyAdapter.RecyclerViewClickListener listener;
+    TextView emptyView;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -41,6 +43,7 @@ public class OngoingHistoryFragment extends Fragment {
         View rootView = inflater.inflate(R.layout.fragment_ongoing_history, container, false);
         mShimmerFrameLayout = rootView.findViewById(R.id.shimmer);
         mShimmerFrameLayout.startShimmer();
+        emptyView =  rootView.findViewById(R.id.empty_view);
         recyclerView = rootView.findViewById(R.id.eventList);
         FirebaseUser currentFirebaseUser = FirebaseAuth.getInstance().getCurrentUser();
         database = FirebaseDatabase.getInstance().getReference("events");
@@ -104,7 +107,7 @@ public class OngoingHistoryFragment extends Fragment {
                     }
 
                     String getMyTime = year+ "/" +newMonth+'/'+newDay+' '+hourOfDay+':'+minute;
-                    if (myList.contains(event.getId())){
+                    if (myList.contains(event.getId()) && !event.getType().equals("petition")){
                         if (getCurrentDateTime.compareTo(getMyTime) < 0)
                         {
                             list.add(event);
@@ -115,7 +118,14 @@ public class OngoingHistoryFragment extends Fragment {
                 }
                 mShimmerFrameLayout.stopShimmer();
                 mShimmerFrameLayout.setVisibility(View.GONE);
-                recyclerView.setVisibility(View.VISIBLE);
+                if (list.isEmpty()) {
+                    recyclerView.setVisibility(View.GONE);
+                    emptyView.setVisibility(View.VISIBLE);
+                }
+                else {
+                    recyclerView.setVisibility(View.VISIBLE);
+                    emptyView.setVisibility(View.GONE);
+                }
                 myAdapter.notifyDataSetChanged();
             }
 
