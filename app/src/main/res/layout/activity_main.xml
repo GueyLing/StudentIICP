@@ -60,5 +60,22 @@
         android:layout_margin="20dp"
         />
 
+    <TextView
+        android:id="@+id/textView7"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="130dp"
+        android:layout_below="@id/login"
+        android:text="Don't have an account?" />
+    <TextView
+        android:id="@+id/register"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="160dp"
+        android:textColor="#F44336"
+        android:layout_below="@id/textView7"
+        android:clickable="true"
+        android:text="Create Now" />
+
 
 </RelativeLayout>
