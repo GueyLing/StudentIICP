@@ -12,6 +12,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
 import com.facebook.shimmer.ShimmerFrameLayout;
 import com.google.firebase.auth.FirebaseAuth;
@@ -39,6 +40,7 @@ public class EventsFragment extends Fragment {
     MyAdapter myAdapter;
     ArrayList<EventTitle> list;
     MyAdapter.RecyclerViewClickListener listener;
+    TextView emptyView;
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -86,6 +88,7 @@ public class EventsFragment extends Fragment {
         View rootView = inflater.inflate(R.layout.fragment_events, container, false);
         recyclerView = rootView.findViewById(R.id.eventList);
         mShimmerFrameLayout = rootView.findViewById(R.id.shimmer);
+        emptyView =  rootView.findViewById(R.id.empty_view);
         mShimmerFrameLayout.startShimmer();
         FirebaseUser currentFirebaseUser = FirebaseAuth.getInstance().getCurrentUser();
         database = FirebaseDatabase.getInstance().getReference("events");
@@ -166,7 +169,14 @@ public class EventsFragment extends Fragment {
                 }
                 mShimmerFrameLayout.stopShimmer();
                 mShimmerFrameLayout.setVisibility(View.GONE);
-                recyclerView.setVisibility(View.VISIBLE);
+                if (list.isEmpty()) {
+                    recyclerView.setVisibility(View.GONE);
+                    emptyView.setVisibility(View.VISIBLE);
+                }
+                else {
+                    recyclerView.setVisibility(View.VISIBLE);
+                    emptyView.setVisibility(View.GONE);
+                }
                 myAdapter.notifyDataSetChanged();
             }
 
