@@ -114,6 +114,7 @@ public class EventsFragment extends Fragment {
                     myList.add(dataSnapshot.getKey().toString());
 
                 }
+                addCards(myList);
             }
 
             @Override
@@ -122,6 +123,11 @@ public class EventsFragment extends Fragment {
             }
         });
 
+
+        return rootView;
+    }
+
+    private void addCards(ArrayList<String> myList) {
         database.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
@@ -169,7 +175,6 @@ public class EventsFragment extends Fragment {
 
             }
         });
-        return rootView;
     }
 
     private void setOnClickListener() {
