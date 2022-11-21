@@ -113,8 +113,8 @@ public class EventsFragment extends Fragment {
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 myList.clear();
                 for (DataSnapshot dataSnapshot: snapshot.getChildren()){
-                    if (dataSnapshot.getValue().toString().equals("false"))
-                    myList.add(dataSnapshot.getKey().toString());
+                    if (dataSnapshot.getValue().toString().equals("false")){
+                    myList.add(dataSnapshot.getKey().toString());}
 
                 }
                 addCards(myList);
